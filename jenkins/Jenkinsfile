@@ -6,7 +6,7 @@ pipeline {
             parallel {
                 stage('Unit Tests - Backend') {
                     agent {
-                        docker{
+                        docker {
                             image 'snakee/golang-junit:1.21'
                             reuseNode true
                         }
@@ -20,16 +20,16 @@ pipeline {
                     }
                     steps {
                         sh 'mkdir -p "$HOME/.cache" "$GOCACHE"'
-                        dir('bugtracker-backend'){
+                        dir('bugtracker-backend') {
                             sh '''
-                            go test -v ./... 2>&1 | go-junit-report > test-results.xml
-                            
-                            #Generate coverage report
-                            go test -coverprofile=coverage.out -covermode=atomic ./...
-                            go tool cover -html=coverage.out -o coverage.html
+                                go test -v ./... 2>&1 | go-junit-report > test-results.xml
 
-                            mkdir -p reports
-                            mv coverage.html reports/
+                                # Generate coverage report
+                                go test -coverprofile=coverage.out -covermode=atomic ./...
+                                go tool cover -html=coverage.out -o coverage.html
+
+                                mkdir -p reports
+                                mv coverage.html reports/
                             '''
                         }
                     }
@@ -47,7 +47,7 @@ pipeline {
                     }
                 }
 
-                stage ('Unit Tests - Frontend') {
+                stage('Unit Tests - Frontend') {
                     agent {
                         docker {
                             image 'node:20-alpine'
@@ -62,7 +62,6 @@ pipeline {
 
                                 mkdir -p reports
                                 mv coverage reports/
-
                             '''
                         }
                     }
