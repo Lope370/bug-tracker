@@ -123,7 +123,7 @@ jobs:
     needs: [unit-tests-backend, unit-tests-frontend]
     runs-on: ubuntu-latest
 
-    steps":
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
